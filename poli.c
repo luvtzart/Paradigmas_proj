@@ -3,6 +3,12 @@
 
 #include "poli.h"
 
+// Luiza Marinho de Mesquita - 10438045
+// Marina Cantarelli Barroca - 10740412
+
+// link do trab no git = https://github.com/luvtzart/Paradigmas_proj
+
+
 polinomio * poli_create(int grau){
     polinomio *valor = (polinomio *)malloc(sizeof(polinomio));
     if (valor == NULL) {

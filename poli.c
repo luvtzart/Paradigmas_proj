@@ -10,7 +10,7 @@
 
 
 polinomio * poli_create(int grau){
-    polinomio *valor = (polinomio *)malloc(sizeof(polinomio));
+    polinomio *valor = (polinomio *)malloc(sizeof(polinomio)); //cria polinomio
     if (valor == NULL) {
         return NULL;
     }
@@ -19,7 +19,7 @@ polinomio * poli_create(int grau){
     valor -> termos = 0;
     valor -> coeficientes = (int *)calloc(grau + 1, sizeof(int));
     if (valor -> coeficientes == NULL) {
-        free(valor);
+        free(valor); // libera a memoria, respeita o teste
         return NULL;
     }
     
@@ -35,7 +35,7 @@ void poli_destroy(polinomio **p){
         free(valor -> coeficientes);
         free(valor);
 
-        *p = NULL;
+        *p = NULL; // destroi o valor ao igualar-lo a zero
     }
     // TODO: Implemente aqui a solucao para operacao destroy
     return;
@@ -62,7 +62,7 @@ int poli_get_termo(polinomio *p, int exp, int *coef){
     // int aux = p -> grau
     if (coef != NULL && p != NULL && exp >= 0 && exp <= p -> grau && p -> coeficientes[exp] != 0){
         *coef = p -> coeficientes[exp];
-        return 1;
+        return 1;  // se achou o termo retorna 1, se ele for nulo = 0
     }
 
     return 0;

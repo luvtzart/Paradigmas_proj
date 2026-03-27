@@ -126,21 +126,25 @@ polinomio * poli_div(polinomio *p, polinomio *q){
     if(q->grau == 0 && q->coeficientes[0] == 0) return NULL; // para operação com 0!
     
     int grau = p-> grau - q-> grau; // diminui os termos, visto que se trata da div
-    
+    if(grau < 0){
+        return poli_create(0); // satisfaz teste 204
+    }
     polinomio *result = poli_create(grau);
-    polinomio *resto = poli_create(grau); // novo polinomio p fzr o resto da divisao
+    polinomio *resto = poli_create(p-> grau); // novo polinomio p fzr o resto da divisao
 
     // mesmo esquema que a soma, porém com o for integrado e no final multiplicando q e p
     for(int i = 0; i <= p-> grau; i++){
-        resto->coeficientes[i] = p->coeficientes[i]
+        resto-> coeficientes[i] = p-> coeficientes[i];
     }
         
-    for(int i = 0; i <= p-> grau; i++){
-        if(resto->coeficientes[i] != 0){
-            int coef = resto->coeficientes[i] / q->coeficientes[q->grau];
-            
+    for(int i = p-> grau; i >= q-> grau; i--){ // começa no maior grau e dps vai pro menor
+        if(resto-> coeficientes[i] != 0){
+            int coef = resto-> coeficientes[i] / q-> coeficientes[q-> grau];
+            int novo = i - q-> grau; // novo valor do expoente após div
+            result-> coeficientes[novo] = coef;
+
             for(int j = 0; j <= q-> grau; j++){
-                result-> coeficientes[i + j] += q-> coeficientes[j] / p-> coeficientes[i];
+                resto-> coeficientes[novo + j] -= coef * q-> coeficientes[j]; // parecido com mult, porem com -= e * coef
             }
         }
     }
